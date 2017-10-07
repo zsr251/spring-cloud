@@ -1,0 +1,16 @@
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: k88
+    password: k88
+    virtualHost: /
+    publisherConfirms: true
+
+server:
+  port: 16005
+
+security:
+  user:
+    name: admin
+    password: ${ZIPKIN_SERVER_PASSWORD:admin}

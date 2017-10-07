@@ -1,0 +1,36 @@
+server:
+  port: 16002
+spring:
+  cloud:
+      config:
+        server:
+          git:
+            uri: http://git.oschina.net/zsr/springcloudConfig/
+            search-paths: jc
+            default-label: master
+            username: xxx
+            password: xxx
+  rabbitmq:
+      host: rabbitmq
+      port: 5672
+      username: k88
+      password: k88
+      virtualHost: /
+      publisherConfirms: true
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:16001/eureka/
+security:
+  user:
+    name: user
+    password: ${CONFIG_SERVER_PASSWORD:password}
+logging:
+  level: info
+  file: /Users/jasonzhu/data/logs/config.log

@@ -1,0 +1,27 @@
+server:
+  port: 16001
+
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+#  server:
+    #缓存更新时间，默认30s
+#    response-cache-update-interval-ms: 1000
+    # 实例过期清理时间间隔，默认60秒
+#    eviction-interval-timer-in-ms: 1000
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+# 参考文档：http://projects.spring.io/spring-cloud/docs/1.0.3/spring-cloud.html#_standalone_mode
+# 参考文档：http://my.oschina.net/buwei/blog/618756
+security:
+  user:
+    name: user
+    password: ${REGISTRY_SERVER_PASSWORD:password}
+
+logging:
+  level: info
+  file: /data/logs/eureka.log

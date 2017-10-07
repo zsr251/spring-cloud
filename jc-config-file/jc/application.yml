@@ -1,0 +1,58 @@
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:16001/eureka/
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+spring:
+  # HTTP ENCODING
+  http:
+    encoding.charset: UTF-8
+    encoding.enable: true
+    encoding.force: true
+  # mq
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: k88
+    password: k88
+    virtualHost: /
+    publisherConfirms: true
+  sleuth:
+    sampler:
+      percentage: 1
+    integration:
+      enabled: false
+    scheduled:
+      skip-pattern: "^org.*HystrixStreamTask$"
+mybatis:
+    type-aliases-package: tk.mybatis.springboot.model
+    mapper-locations: classpath:mapper/*.xml
+mapper:
+    mappers:
+        - com.jc.base.mybatis.MyMapper
+    not-empty: false
+    identity: MYSQL
+#authserver:
+#    hostname: auth-service
+#    port: 5000
+#    contextPath: /uaa
+
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/current

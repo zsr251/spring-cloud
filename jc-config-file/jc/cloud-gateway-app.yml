@@ -1,0 +1,14 @@
+server:
+  port: 16005
+zuul:
+  ignored-services: cloud-provider-user                        # 需要忽视的服务(配置后将不会被路由)
+  routes:
+    cloud-sso:                                                      # 可以随便写，在zuul上面唯一即可；当这里的值 = service-id时，service-id可以不写。
+      path: /sso/**                                                 # 想要映射到的路径
+      service-id: cloud-sso
+    user:
+      path: /user/**
+      service-id: cloud-sso
+logging:
+  level: info
+  file: /Users/jasonzhu/data/logs/app.log
